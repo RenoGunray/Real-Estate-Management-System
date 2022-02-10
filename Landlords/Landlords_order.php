@@ -14,8 +14,8 @@ include ("function/landlords_function.php");
     <title>makao bora</title>
 
     <!-- Bootstrap -->
-    <link href="/makao/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="/makao/style/style.css" media="all">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../style/style.css" media="all">
 
   </head>
   <body>
@@ -46,7 +46,7 @@ include ("function/landlords_function.php");
 					</div>
 					<div class="collapse navbar-collapse" id="myNavbar">
 							<ul class="nav navbar-nav">
-								<li class="active"><a href="index.php">Home</a></li>
+								<li class="active"><a href="../index.php">Home</a></li>
 								<li class="active"><a href="#">Client Orders</a></li>
 								<li class="active"><a href="#">FAQs</a></li>
 							</ul>

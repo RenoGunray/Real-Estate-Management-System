@@ -76,7 +76,7 @@ include ("function/landlords_function.php");
 
 				$customer_insert="update customer set customer_idno=$idno,customer_name='$name', customer_contacts=$contact,customer_email='$email',customer_password='$pass1',customer_propic='$profile_pic' where customer_idno='".$_SESSION['idno']."'";
 
-				$insert_query=mysql_query($customer_insert);
+				$insert_query=mysqli_query($con, $customer_insert);
 
 
 
@@ -110,8 +110,8 @@ include ("function/landlords_function.php");
     <title>makao bora</title>
 
     <!-- Bootstrap -->
-    <link href="/makao/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="/makao/style/style.css" media="all">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../style/style.css" media="all">
 
   </head>
   <body>

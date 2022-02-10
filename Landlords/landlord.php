@@ -14,8 +14,8 @@ include ("function/landlords_function.php");
     <title>makao bora</title>
 
     <!-- Bootstrap -->
-    <link href="/makao/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="/makao/style/style.css" media="all">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../style/style.css" media="all">
 
   </head>
   <body>
