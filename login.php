@@ -37,9 +37,13 @@ if(isset($_POST['login']))
 			header('Location:Tenants/tenants.php');
 
 		}
-		else
+		if ($_SESSION['client_type']==2)
 		{
 			header('Location:Landlords/landlord.php');
+		}
+		if ($_SESSION['client_type']==3) 
+		{
+			header('location:admin/admin.php');
 		}
 
 

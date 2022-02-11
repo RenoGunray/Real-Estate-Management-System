@@ -208,6 +208,13 @@ function getProperty()
 
 	}
 
+	function get_client_property(){
+		
+
+	}
+
+
+
 
 
 

@@ -61,11 +61,12 @@ include ("function/landlords_function.php");
 		<div class="row">
 			<div class="col-md-5">
 			<!--CLIENT SIDE MENU-->
+			<a href="property.php">Property</a><br>
 				<a href="landlord.php">personal details</a><br>
 				<a href="Landlords_order.php">my orders</a><br>
 				<a href="edit_landlords_details.php">edit personal details</a><br>
 				<a href="withdraw.php">Widthdraw cash</a><br>
-				<a href="/makao/index.php">logout</a>
+				<a href="../signout.php">logout</a>
 			</div>
 			<div class="col-md-7">
 				<?php echo get_client_deatils();?>
@@ -92,7 +93,7 @@ include ("function/landlords_function.php");
 				<ul class="footer-nav">
 					<li><a href="index.php">Home</a></li>
 					<li><a href="#">FAQs</a></li>
-					<li><a href="/makao/index.php">Sign Out</a></li>
+					<li><a href="../signout.php">Sign Out</a></li>
 				</ul>
 			</div>
 			</div>

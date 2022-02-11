@@ -9,7 +9,6 @@ if (isset($_POST['signup']))
 	$name=$_POST['customer_name'];
 	$contact=$_POST['customer_contact'];
 	$gender=$_POST['customer_gender'];
-	$idno=$_POST['customer_idno'];
 	$type=$_POST['customer_type'];
 	$email=$_POST['customer_email'];
 	$pass1=$_POST['customer_pass1'];
@@ -43,17 +42,6 @@ if (isset($_POST['signup']))
 
 	}
 
-	//checking ID number
-	if (strlen($idno)!=8)
-	{
-		$error=true;
-		$idno_error1="Enter valid ID Number, check length";
-	}
-	if(!preg_match('/^[0-9]{8}$/',$idno))
-	{
-		$error=true;
-		$idno_error2=" ID Number can only contain numbers";
-	}
 	if(!filter_var($email,FILTER_VALIDATE_EMAIL))
 	{
 		$error = true;
@@ -70,7 +58,7 @@ if (isset($_POST['signup']))
 
 	if(!$error)
 	{
-		$customer_insert="insert into customer(customer_id,customer_idno,customer_name,customer_gender,customer_contacts,customer_email,customer_type,customer_balance,customer_propic,customer_password) values('',$idno,'$name','$gender',$contact,'$email',$type,'','','$pass1')";
+		$customer_insert="insert into customer(customer_id,customer_name,customer_gender,customer_contacts,customer_email,customer_type,customer_balance,customer_propic,customer_password) values('','$name','$gender',$contact,'$email',$type,'','','$pass1')";
 
 		$insert_query=mysqli_query($con,$customer_insert);
 
@@ -139,14 +127,7 @@ if (isset($_POST['signup']))
 			<span class="text-danger"><?php if (isset($gender_error)) echo $gender_error; ?></span>
 		</div>
 	</div>
-	<div class="form-group">
-		<label class="control-label col-xs-2"> Id Number :</label>
-		<div class="col-xs-4">
-			<input type="input" class="form-control" name="customer_idno" placeholder="eg. 3132333435" required value="<?php if($error) echo $idno; ?>">
-			<span class="text-danger"><?php if (isset($idno_error1)) echo $idno_error1.'<br>'; ?></span>
-			<span class="text-danger"><?php if (isset($idno_error2)) echo $idno_error2; ?></span>
-		</div>
-	</div>
+	
 	<div class="form-group" >
 		<label class="control-label col-xs-2">Client Type:</label>
 		<div class="col-xs-4">
