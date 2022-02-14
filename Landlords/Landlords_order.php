@@ -14,7 +14,7 @@ include ("function/landlords_function.php");
     <title>makao bora</title>
 
     <!-- Bootstrap -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../style/style.css" media="all">
 
   </head>
@@ -23,7 +23,7 @@ include ("function/landlords_function.php");
 	<div class="row">
 		<div class="col-md-3 col-md-offset-9">
 		 <?php  echo get_profile_pic().'<br>';
-		 echo 'Welcome '.$_SESSION['name'];?>
+		 //echo 'Welcome '.$_SESSION['name'];?>
 		</div>
 
 	</div>
@@ -35,24 +35,31 @@ include ("function/landlords_function.php");
 		<div class="row">
 
 		<!--		<div class="logo"> <img src="images/makazi.png" class="img-responsive" /></div> navbar-fixed-top-->
-				<nav class="navbar navbar-default ">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#"><img src="/makao/images/logo4.png" style="max-width:120px; margin-top:-15px; " ></a>
-					</div>
-					<div class="collapse navbar-collapse" id="myNavbar">
-							<ul class="nav navbar-nav">
-								<li class="active"><a href="../index.php">Home</a></li>
-								<li class="active"><a href="#">Client Orders</a></li>
-								<li class="active"><a href="#">FAQs</a></li>
-							</ul>
-					</div>
 
-				</nav>
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Client Orders</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">FAQs</a>
+                </li>
+              </ul>
+              <div class="d-flex">
+                <?php echo $_SESSION['name']; ?>
+              </div>
+            </div>
+          </div>
+        </nav>
 
 		</div>
 	</div>
@@ -65,7 +72,7 @@ include ("function/landlords_function.php");
       <a href="Landlords_order.php">my orders</a><br>
       <a href="edit_landlords_details.php">edit personal details</a><br>
       <a href="withdraw.php">Widthdraw cash</a><br>
-      <a href="/makao/index.php">logout</a>
+      <a href="../signout.php">logout</a>
 			</div>
 			<div class="col-md-9">
 				<?php echo get_client_orders();?>

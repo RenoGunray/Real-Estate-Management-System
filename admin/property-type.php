@@ -64,8 +64,8 @@ include ("function/admin_function.php");
 		<div class="row">
 			<div class="col-md-5">
 			<!--CLIENT SIDE MENU-->
-			<a href="property.php">Property</a><br>
-				<a href="landlord.php">personal details</a><br>
+      <a href="admin.php">personal details</a><br>
+			<a href="property-type.php">Property</a><br>
 				<a href="Landlords_order.php">my orders</a><br>
 				<a href="edit_landlords_details.php">edit personal details</a><br>
 				<a href="withdraw.php">Widthdraw cash</a><br>

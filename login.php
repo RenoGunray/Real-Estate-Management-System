@@ -10,7 +10,7 @@ if(isset($_POST['login']))
 	$password=$_POST['password'];
 
 	//USED DURING THE PURCHASE OF A HOUSE
-	$pro_id= $_SESSION['pro_id'];
+	// $pro_id= $_SESSION['pro_id'];
 
 
 	$login_query= "select * from customer where customer_email='".$email."' and customer_password='".$password."'";
@@ -24,13 +24,14 @@ if(isset($_POST['login']))
 
 		//to be used for sessioning
 
-		$_SESSION['idno']=$row['customer_idno'];
+		$_SESSION['id']=$row['customer_id'];
 		$_SESSION['name']=$row['customer_name'];
 		$_SESSION['propic']=$row['customer_propic'];
 		$_SESSION['balance']=$row['customer_balance'];
 		$_SESSION['contacts']=$row['customer_contacts'];
 		$_SESSION['email']=$row['customer_email'];
 		$_SESSION['client_type']=$row['customer_type'];
+		$_SESSION['gender']=$row['customer_gender'];
 
 		if ($_SESSION['client_type']==1)
 		{
@@ -67,14 +68,14 @@ if(isset($_POST['login']))
     <title>makao bora</title>
 
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 
   </head>
   <body>
    <div class="container">
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4 well">
+	<div class="row mt-5">
+		<div class="col-md-4 col-md-offset-4 well m-auto">
 			<form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 				<fieldset>
 					<legend>Login</legend>
@@ -97,7 +98,7 @@ if(isset($_POST['login']))
 		</div>
 	</div>
 	<div class="row">
-        <div class="col-md-4 col-md-offset-4 text-center">
+        <div class="col-md-4 col-md-offset-4 text-center m-auto">
         New User? <a href="sign_up.php">Sign Up Here</a>
         </div>
     </div>
@@ -106,6 +107,6 @@ if(isset($_POST['login']))
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -1,5 +1,4 @@
 <?php
-session_start();
 include ("function/function.php");
 
 ?>
@@ -13,7 +12,7 @@ include ("function/function.php");
     <title>makao bora</title>
 
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet" href="style/style.css" media="all">
 
   </head>
@@ -23,7 +22,7 @@ include ("function/function.php");
 	<div class="container-fluid">
 		<div class="row">
 
-		<!--		<div class="logo"> <img src="images/makazi.png" class="img-responsive" /></div> -->
+		<!--		<div class="logo"> <img src="images/makazi.png" class="img-responsive" /></div> 
 				<nav class="navbar navbar-default navbar-fixed-top">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
@@ -47,6 +46,37 @@ include ("function/function.php");
 					</div>
 
 				</nav>
+-->
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Property Search</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="contact_us.php">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">About Us</a>
+                </li>
+              </ul>
+              <div class="d-flex">
+							<ul class="nav navbar-nav navbar-right">
+								<li clas="nav-item"><a href="sign_up.php" class="nav-link"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+								<li class="nav-item"><a href="login.php" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+							</ul>
+              </div>
+            </div>
+          </div>
+        </nav>
 
 		</div>
 	</div>
@@ -216,7 +246,7 @@ include ("function/function.php");
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="..bootstrap/dist/js/bootstrap.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('#myslider').carousel();

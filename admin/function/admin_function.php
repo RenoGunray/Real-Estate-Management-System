@@ -11,6 +11,37 @@ function get_property_types ()
  
 ?>
 
+<div class="mb-3">
+<form role="form" action="property-type.php" method="post">
+  <div class="form-group d-flex">
+    <input type="text" name="cat-name" placeholder="New Category" required class="form-control me-3" />
+    <button type="submit" name="new-cat" class="btn btn-primary">Add</button>
+  </div>
+</form>
+
+<?php
+// add a new category
+
+if (isset($_POST['new-cat'])) {
+
+  if (!empty($_POST['cat-name'])) {
+    $cat_name = $_POST['cat-name'];
+
+    $insert = "insert into categories (cat_title) values ('$cat_name')";
+    $in_query = mysqli_query($con, $insert);
+
+    if ($in_query) {
+      echo "<p><strong>Success!!</strong></p>";
+      header ('location:property-type.php');
+    }
+
+  }
+
+}
+
+?>
+</div>
+
 <table class="table border">
   <thead>
     <tr>
@@ -44,40 +75,34 @@ function get_user_details ()
 {
   global $con;
   $name = $_SESSION['name'];
-  $u_id = $_SESSION['idno'];
+  $u_id = $_SESSION['id'];
   $select = "select * from customer where customer_id='$u_id'";
   $query = mysqli_query($con, $select);
 
 ?>
 
-<table class="table border">
+<table class="table table-bordered border">
   <tbody>
-    <?php 
-      while($rows=mysqli_fetch_array($query))
-      {
-        $name = $rows['customer_name'];
-        $gender = $rows['customer_gender'];
-        $contact = $rows['customer_contacts'];
-        $email = $rows['customer_email'];
-        $balance = $rows['customer_balance'];
-      
-    ?>
     <tr>
+      <th>Name: </th>
       <td><?php echo $name ?></td>
     </tr>
     <tr>
-      <td><?php echo $gender ?></td>
+      <th>Contact: </th>
+      <td><?php echo $_SESSION['contacts'] ?></td>
     </tr>
     <tr>
-      <td><?php echo $contact ?></td>
+      <th>Email: </th>
+      <td><?php echo $_SESSION['email']; ?></td>
     </tr>
     <tr>
-      <td><?php echo $email ?></td>
+      <th>Gender: </th>
+      <td><?php echo $_SESSION['gender'] ?></td>
     </tr>
     <tr>
-      <td><?php echo $balance ?></td>
+      <th>Balance: </th>
+      <td><?php echo $_SESSION['balance'] ?></td>
     </tr>
-    <?php }//End while loop ?>
   </tbody>
 </table>
 

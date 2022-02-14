@@ -71,14 +71,14 @@ function getProperty()
 	{
 		global $con;
 			//getting personal details in full
-		$get_details="select * from customer where customer_idno='".$_SESSION['idno']."'";
+		$get_details="select * from customer where customer_id='".$_SESSION['id']."'";
 
 		$get_details_results=mysqli_query($con,$get_details);
 
 		if($results_row=mysqli_fetch_array($get_details_results))
 		{
 			$name=$results_row['customer_name'];
-			$idno=$results_row['customer_idno'];
+		
 			$email=$results_row['customer_email'];
 			$contact=$results_row['customer_contacts'];
 			$balance=$results_row['customer_balance'];
@@ -90,10 +90,7 @@ function getProperty()
 						<th>Name :</th>
 						<td> $name </td>
 					</tr>
-					<tr>
-						<th>Id Number :</th>
-						<td>  $idno</td>
-					</tr>
+				
 					<tr>
 						<th>contacts:</th>
 						<td>  $contact</td>
@@ -113,7 +110,7 @@ function getProperty()
 	{
 		global $con;
 
-		$get_details="select * from customer where customer_idno='".$_SESSION['idno']."'";
+		$get_details="select * from customer where customer_id='".$_SESSION['id']."'";
 
 		$get_details_results=mysqli_query($con,$get_details);
 
@@ -131,14 +128,14 @@ function getProperty()
 	{
 		global $con;
 		//getting landlords details
-		$get_details="select * from customer where customer_idno='".$_SESSION['idno']."'";
+		$get_details="select * from customer where customer_id='".$_SESSION['id']."'";
 
 		$get_details_results=mysqli_query($con,$get_details);
 
 		if($results_row=mysqli_fetch_array($get_details_results))
 		{
 			$l_name=$results_row['customer_name'];
-			$idno=$results_row['customer_idno'];
+			
 			$email=$results_row['customer_email'];
 			$contact=$results_row['customer_contacts'];
 			$balance=$results_row['customer_balance'];
@@ -154,7 +151,7 @@ function getProperty()
 				<table class=' table table-bordered table-condensed table-hover table-responsive'>
 							<tr>
 								<th>Buyers' Name</th>
-								<th>Id Number</th>
+
 								<th>Contacts</th>
 								<th>Buyers' Email</th>
 								<th>Property Type</th>
@@ -170,7 +167,7 @@ function getProperty()
 				while($results_row=mysqli_fetch_array($get_customer_details_results))
 				{
 					$name=$results_row['customer_name'];
-					$idno=$results_row['customer_idno'];
+					// $idno=$results_row['customer_idno'];
 					$contact=$results_row['customer_contacts'];
 					$email=$results_row['customer_email'];
 					$property_type=$results_row['property_type'];
@@ -188,7 +185,6 @@ function getProperty()
 
 						echo "	<tr>
 								<td>$name</td>
-								<td>$idno</td>
 								<td>$contact</td>
 								<td>$email</td>
 								<td>$property_type</td>
