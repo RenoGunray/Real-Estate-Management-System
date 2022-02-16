@@ -32,6 +32,7 @@ if(isset($_POST['login']))
 		$_SESSION['email']=$row['customer_email'];
 		$_SESSION['client_type']=$row['customer_type'];
 		$_SESSION['gender']=$row['customer_gender'];
+		$_SESSION['pass']=$row['customer_password'];
 
 		if ($_SESSION['client_type']==1)
 		{

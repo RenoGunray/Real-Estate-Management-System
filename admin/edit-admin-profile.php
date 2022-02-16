@@ -2,82 +2,49 @@
 //session_start();
 include ("function/admin_function.php");
 
-	$error=false;
-		if (isset($_POST['signup']))
-		{
-			$name=$_POST['customer_name'];
-			$contact=$_POST['customer_contact'];
-			$email=$_POST['customer_email'];
-			$pass1=$_POST['customer_pass1'];
-			$pass2=$_POST['customer_pass2'];
+if (isset($_POST['update'])) {
+	$new_name = $_POST['customer_name'];
+	$new_email = $_POST['customer_email'];
+	$new_contact = $_POST['customer_contact'];
 
+	$password = $_POST['customer_pass1'];
+	$con_pass = $_POST['customer_pass2'];
 
-				//GETTING THE IMAGE FROM THE FIELD
-						// $target_dir = "images/";
-						// $target_file = $target_dir . basename($_FILES["profile_pic"]["name"]);
-						// $uploadOk = 1;
-						// $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+	if ($password == "" and $con_pass == "") {
+		$verify_mssg = "Please Verify Its you";
+	} else if ($password != "" and $con_pass != "") {
+		if ($password == $con_pass) {
+			$new_password = $con_pass;
 
-			//name can contain only alpha character and space
+			//using prepared staments for updating
+			$mysqli = new mysqli("127.0.0.1", "root", "", "makao");
+			$stmt = $mysqli->prepare("UPDATE customer SET customer_name=?, customer_email=?, customer_contacts=?, customer_password=? WHERE customer_id=?");
+			$stmt->bind_param('ssisi', $new_name, $new_email, $new_contact, $new_password, $_SESSION['id']);
+			$stmt->execute();
 
-			if (!preg_match("/^[a-zA-Z ]+$/",$name))
-			{
-				$error = true;
-				$name_error = "Name must contain only alphabets and space";
-
-			}
-			//checking contact
-			if(!preg_match('/^[0-9]{10}$/',$contact))
-			{
-				$error = true;
-				$contact_error2="Contacts can only contain Numbers";
-
-			}
-			if(strlen($contact)!=10)
-			{
-				$error = true;
-				$contact_error1="Enter valid contact, check the length";
+			if ($stmt) {
+				$update_mssg = "Update successful";
+			} else {
+				$update_err = "Something went wrong with the update";
 			}
 
-			if(!filter_var($email,FILTER_VALIDATE_EMAIL))
-			{
-				$error = true;
-				$email_error = "Please Enter Valid Email ID";
-			}
-			
-
-		else
-			{
-
-				//if(move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file))
-				//{
-				// $profile_pic=basename( $_FILES["profile_pic"]["name"]);
-
-
-				$customer_insert="update customer set, customer_name='$name', customer_contacts=$contact,customer_email='$email',customer_password='$pass1', where customer_id='".$_SESSION['id']."'";
-
-				$insert_query=mysqli_query($con, $customer_insert);
-
-
-
-				if($insert_query)
-				{
-					$successmsg = "Details were Updated successfully!<br>";
-				}else
-				{
-					$errormsg = "Error in updating...Please try again later!";
-				}
-				//}
-			// 	 else {
-			// 	$errormsg='<div class="alert alert-danger">
-			// 	<strong>Failed!</strong> Sorry, there was an error uploading your file.
-			// 	</div>';
-			// 	echo "";
-			// }
-
-			}
-
+		} else {
+			$pass_err = "Passwords do not match";
 		}
+	}
+
+
+
+	// $update = "update customer set customer_name='$new_name' where cutomer_id='".$_SESSION['id']."'";
+
+	// $query = mysqli_query($con, $update);
+
+	
+
+}
+
+	$select = "select * from customer where customer_id='".$_SESSION['id']."'";
+	$query = mysqli_query($con, $select);
 
 ?>
 <!DOCTYPE html>
@@ -150,20 +117,27 @@ include ("function/admin_function.php");
 
 			<!-- FORM FOR EDITTING PERSONAL DETAILS-->
 
-							<form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="form-horizontal" method="post" enctype="multipart/form-data">
-				  <fieldset>
-									<legend>Edit your Persoanl Details</legend>
+				<form action="edit-admin-profile.php" class="form-horizontal" method="post" enctype="multipart/form-data">
+				  <?php
+						while ($rows=mysqli_fetch_array($query)) {
+
+							$name = $rows['customer_name'];
+							$contact = $rows['customer_contacts'];
+							$email = $rows['customer_email'];
+							$password = $rows['customer_password'];
+
+					?>
 
 				  <div class="form-group">
 						<label class="control-label col-xs-2"> Names :</label>
 						<div class="col-xs-4">
-							<input type="input" class="form-control" name="customer_name" placeholder="fullnames" value="<?php echo $_SESSION['name']; if($error) echo $name; ?>" >
-							<span class="text-danger"><?php if (isset($name_error)) echo $name_error; ?></span>
+							<input type="text" class="form-control" name="customer_name" placeholder="fullnames" value="<?php echo $name; ?>" >
+							
 							</div>
 					<div class="form-group">
 						<label class="control-label col-xs-2">Contacts :</label>
 						<div class="col-xs-4">
-							<input type="input" class="form-control" name="customer_contact" value="<?php echo $_SESSION['contacts']; if($error) echo $contact; ?>">
+							<input type="text" class="form-control" name="customer_contact" value="<?php echo $contact; ?>">
 						</div>
 					</div>
 					<!--W
@@ -177,34 +151,39 @@ include ("function/admin_function.php");
 					<div class="form-group">
 						<label class="control-label col-xs-2"> Email :</label>
 						<div class="col-xs-4">
-							<input type="input" class="form-control" name="customer_email" placeholder="eg. some@thing.com" value="<?php echo $_SESSION['email'];if($error) echo $email; ?>" />
-							<span class="text-danger"><?php if (isset($email_error)) echo $email_error; ?></span>
+							<input type="text" class="form-control" name="customer_email" placeholder="eg. some@thing.com" value="<?php echo $email; ?>" />
+							
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-xs-2"> Password :</label>
 						<div class="col-xs-4">
-							<input type="password" class="form-control" name="customer_pass1" >
-							<span class="text-danger"><?php if (isset($password_error)) echo $password_error; ?></span>
+							<input type="password" class="form-control" name="customer_pass1" placeholder="New/Current Password">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-xs-2"> Confirm Password :</label>
 						<div class="col-xs-4">
 							<input type="password" class="form-control" name="customer_pass2" placeholder="confirm password" >
-							 <span class="text-danger"><?php if (isset($cpassword_error)) echo $cpassword_error; ?></span>
+							 <span><?php if(isset($pass_err)) echo $pass_err; ?></span>
+							 <span><?php if(isset($verify_mssg)) echo $verify_mssg; ?></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-xs-2"></label>
 						</div>
 						<div class="col-xs-4">
-					<input type="submit" name="signup" class="btn btn-primary" value="Update Details">
+					<button type="submit" name="update" class="btn btn-primary">Update Details</button>
 					</div>
+
+					<?php
+					
+						}//close loop
+					?>
 					  </fieldset>
-				  </form>
-					<span class="text-success"><?php if (isset($successmsg)) { echo $successmsg; } ?></span>
-					<span class="text-danger"><?php if (isset($errormsg)) { echo $errormsg; } ?></span>
+				</form>
+				<span><?php if(isset($update_mssg)) echo $update_mssg; ?></span>
+				<span><?php if(isset($update_err)) echo $update_err; ?></span>
 
 			</div>
 		</div>
