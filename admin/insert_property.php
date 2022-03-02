@@ -1,6 +1,6 @@
 
 <?php
-
+session_start();
 include ("includes/db.php");
 	if(isset($_POST['insert_property'])){
 
@@ -10,15 +10,12 @@ include ("includes/db.php");
 
 		$property_title=$_POST['property_title'];
 		$property_owner=$_POST['property_owner'];
-		$property_ownerID=$client_id;
 		$property_cat=$_POST['property_cat'];
 		$property_type=$_POST['property_type'];
 		$property_price=$_POST['property_price'];
 		$property_desc=$_POST['property_desc'];
 		$bed=$_POST['bed'];
 		$bath=$_POST['bath'];
-		$property_loc=$_POST['property_loc'];
-		$property_keywords=$_POST['property_keywords'];
 
 		//GETTING THE IMAGE FROM THE FIELD
 		$target_dir = "property_images/";
@@ -34,7 +31,7 @@ include ("includes/db.php");
 
 
 
-				$insert_list= "insert into property(property_cat,property_type,property_title,property_owner,property_image,property_price,property_desc,bed,bath,property_loc,property_keywords) values($property_cat,$property_type,'$property_title','$property_owner','$property_image',$property_price,'$property_desc',$bed,$bath,$property_loc,'$property_keywords')";
+				$insert_list= "insert into property(property_cat,property_type,property_title,property_owner,property_image,property_price,property_desc,bed,bath) values($property_cat,$property_type,'$property_title','$property_owner','$property_image',$property_price,'$property_desc',$bed,$bath)";
 
 
 								$insert_pro=mysqli_query( $con,$insert_list);
@@ -79,8 +76,8 @@ include ("includes/db.php");
     <title>makao bora</title>
 
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/makao/style/style.css" rel="stylesheet">
+    <link href="../bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../style/style.css" rel="stylesheet">
 
   </head>
   <body>
@@ -90,31 +87,21 @@ include ("includes/db.php");
 		<div class="row">
 
 		<!--		<div class="logo"> <img src="images/makazi.png" class="img-responsive" /></div> navbar-fixed-top-->
-				<nav class="navbar navbar-default ">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="/makao/index.php"><img src="/makao/images/logo4.png" style="max-width:120px; margin-top:-15px; " ></a>
-					</div>
-					<div class="collapse navbar-collapse" id="myNavbar">
-							<ul class="nav navbar-nav">
-								<li class="active"><a href="insert_property.php">Home</a></li>
-								<li class="active"><a href="client_orders.php">Client Orders</a></li>
-								<li class="active"><a href="faqs.php">FAQs</a></li>
-							</ul>
-					</div>
-
-				</nav>
+		<?php include 'includes/admin-navbar.php' ?>
 
 		</div>
 	</div>
 	<!--END OF NAVBAR-->
   <div class="container">
-	<div class="row">
+	<div class="row mt-5">
+	<div class="col-md-5">
+			<!--CLIENT SIDE MENU-->
+        <?php include 'includes/sidenav.php'; ?>
+	</div>
 	<div class="col-md-7 col-md-offset-2 well">
+		<div class="d-flex mb-3">
+          <?php include 'includes/property-subnav.php' ?>
+    </div>
 
     <?php if(isset($added)){ echo $added.'</br>';} ?>
     <?php if(isset($id_error)){ echo $id_msg.'</br>';} ?>
@@ -132,18 +119,7 @@ include ("includes/db.php");
 		<label class="control-label col-xs-3">Property Owner :</label>
 		<div class="col-xs-4">
 		<select class="form-control" name="property_owner" required >
-			<?php
-			global $con;
-				$get_cats="select customer_name from customer where customer_type='2'";
-
-				$run_cats=mysqli_query( $con,$get_cats);
-
-				while($row_cats = mysqli_fetch_array($run_cats)){
-
-					$client_name=$row_cats['customer_name'];
-					echo "<option value='$client_name'>$client_name</option>";
-				}
-			?>
+			<option value="<?php echo $_SESSION['id'] ?>"><?php echo $_SESSION['name'] ?></option>
 		</select>
 		</div>
 	</div>
@@ -211,27 +187,9 @@ include ("includes/db.php");
 		</select>
 	</div>
 	</div>
+	
 	<div class="form-group" >
-		<label class="control-label col-xs-3">Location :</label>
-		<div class="col-xs-4">
-		<select class="form-control" name="property_loc" required>
-			<?php
-				$get_location="select * from location";
-
-				$run_location=mysqli_query( $con,$get_location);
-
-				while($row_location = mysqli_fetch_array($run_location)){
-
-					$location_id=$row_location['location_id'];
-					$location_title=$row_location['location_title'];
-					echo "<option value='$location_id'>$location_title</option>";
-				}
-			?>
-		</select>
-	</div>
-	</div>
-	<div class="form-group" >
-		<label class="control-label col-xs-3">Number of Bedrooms :</label>
+		<label class="control-label col-xs-3">Number of Rooms :</label>
 		<div class="col-xs-4">
 		<select class="form-control" name="bed" required>
 			<?php
@@ -272,12 +230,6 @@ include ("includes/db.php");
 		<label class="control-label col-xs-3">Property Description:</label>
 		<div class="col-xs-4">
 			<textarea class="form-control" name="property_desc"  row="10"></textarea>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="control-label col-xs-3">Property Keywords :</label>
-		<div class="col-xs-4">
-			<input type="input" class="form-control" name="property_keywords" required>
 		</div>
 	</div>
 
@@ -325,7 +277,7 @@ include ("includes/db.php");
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="../bootstrap/dist/js/bootstrap.js"></script>
 	<script type="text/javascript">
 	</body>
 </html>

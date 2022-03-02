@@ -42,10 +42,9 @@ function getProperty()
 					$pro_desc=$row_pro['property_desc'];
 					$pro_bed=$row_pro['bed'];
 					$pro_bath=$row_pro['bath'];
-					$pro_loc=$row_pro['property_loc'];
 
 		echo "
-		<ul class='list-group'>
+		<ul class='list-group mt-3'>
 			<li class='list-group-item'>
 		<br>
 			<div class='row'>
@@ -55,7 +54,7 @@ function getProperty()
 				<div class='col-md-8 col-sm-8'>
 					<h3>$pro_title</h3>
 					<p>$pro_desc</p>
-					<p><b> ksh $pro_price /-</b></p>
+					<p><b> K $pro_price /-</b></p>
 					<a href='details.php?pro_id=$pro_id'style='float:left;'><button type='button' class='btn btn-info'>more details</button></a>
 				</div>
 			</div>
@@ -72,7 +71,7 @@ function getProperty()
 	function get_client_deatils()
 	{
 			//getting personal details in full
-		$get_details="select * from customer where customer_idno='".$_SESSION['idno']."'";
+		$get_details="select * from customer where customer_id='".$_SESSION['id']."'";
 
 		$get_details_results=mysqli_query($con, $get_details);
 
@@ -112,7 +111,7 @@ function getProperty()
 
 	function get_profile_pic()
 	{
-		$get_details="select * from customer where customer_idno='".$_SESSION['idno']."'";
+		$get_details="select * from customer where customer_id='".$_SESSION['id']."'";
 
 		$get_details_results=mysqli_query($con, $get_details);
 

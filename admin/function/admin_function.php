@@ -109,5 +109,56 @@ function get_user_details ()
 <?php
 }//End user detail function
 
+function get_all_property() {
+  global $con;
+  $select_property = "select * from property, categories, types, customer where property.property_cat=categories.cat_id and property.property_type=types.type_id and property.property_owner=customer.customer_id";
+
+  $property_query = mysqli_query($con, $select_property);
+
 ?>
 
+
+<table class="table table-bordered border">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Category</th>
+      <th>Owner</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+      while ($rows=mysqli_fetch_array($property_query)) {
+        $property_id = $rows['property_id'];
+        $title = $rows['property_title'];
+        $type = $rows['type_title'];
+        $category = $rows['cat_title'];
+        $owner = $rows['customer_name'];
+        $description = $rows['property_desc'];
+        $price = $rows['property_price'];
+    
+    ?>
+    <tr>
+      <td><?php echo $property_id ?></td>
+      <td><?php echo $title ?></td>
+      <td><?php echo $type ?></td>
+      <td><?php echo $category ?></td>
+      <td><?php echo $owner ?></td>
+      <td><?php echo $description ?></td>
+      <td><?php echo $price ?></td>
+    </tr>
+
+    <?php
+      }//end while loop
+    ?>
+  </tbody>
+</table>
+
+<?php
+}// end function
+
+?>

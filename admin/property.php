@@ -35,8 +35,6 @@ include ("function/admin_function.php");
 		<div class="row">
 
 		<!--		<div class="logo"> <img src="images/makazi.png" class="img-responsive" /></div> navbar-fixed-top-->
-        
-
     <?php include 'includes/admin-navbar.php' ?>
 
 		</div>
@@ -46,10 +44,13 @@ include ("function/admin_function.php");
 		<div class="row">
 			<div class="col-md-5">
 			<!--CLIENT SIDE MENU-->
-      <?php include 'includes/sidenav.php'; ?>
+      <?php include 'includes/sidenav.php' ?>
 			</div>
 			<div class="col-md-7">
-				<?php get_user_details();?>
+        <div class="d-flex mb-3">
+          <?php include 'includes/property-subnav.php' ?>
+        </div>
+				<?php get_all_property() ?>
 			</div>
 		</div>
 	</div>

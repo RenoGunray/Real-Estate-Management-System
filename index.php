@@ -69,10 +69,47 @@ include ("function/function.php");
                 </li>
               </ul>
               <div class="d-flex">
-							<ul class="nav navbar-nav navbar-right">
-								<li clas="nav-item"><a href="sign_up.php" class="nav-link"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-								<li class="nav-item"><a href="login.php" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-							</ul>
+								<?php
+									if (isset($_SESSION['id']) and isset($_SESSION['name'])) {
+
+										$select = "select * from customer, clients where customer.customer_type=clients.client_id and customer_id='".$_SESSION['id']."'";
+
+										$query = mysqli_query($con, $select);
+
+										while ($rows=mysqli_fetch_array($query)) {
+											$customer_name = $rows['customer_name'];
+											$customer_type = $rows['customer_type'];
+											$client_type = $rows['client_title'];
+
+										}
+										if ($client_type == 'admin') {
+											
+											?>
+									<a href="admin/admin.php" class="nav-link"><?php echo $customer_name; ?></a>
+									<?php
+									}
+									
+									if ($client_type == "LandLord") {
+										?>
+										<a href="landlords/landlord.php" class="nav-link"><?php echo $customer_name; ?></a>
+										
+										<?php
+									}
+										
+									}
+
+									else {
+
+								?>
+
+									<ul class="nav navbar-nav navbar-right">
+										<li clas="nav-item"><a href="sign_up.php" class="nav-link"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+										<li class="nav-item"><a href="login.php" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+									</ul>
+								<?php
+
+									}
+								?>
               </div>
             </div>
           </div>
@@ -81,123 +118,12 @@ include ("function/function.php");
 		</div>
 	</div>
 
-  <!-- IMAGE SLIDER SECTION -->
-  <div class="container-fluid slider" >
-  <div id="myslider" class="carousel slide"  style="width:100%; height:450px;background:none;overflow:scroll; margin-top: 20px">
-	<ol class="carousel-indicators" >
-		<li data-target="#myslider" data-slide-to="0" class="active"></li>
-		<li data-target="#myslider" data-slide-to="1"></li>
-		<li data-target="#myslider" data-slide-to="2"></li>
-		<li data-target="#myslider" data-slide-to="3"></li>
-	</ol>
-	<div class="carousel-inner" >
-		 <div class="item active">
-			<img src="images/slider1.jpg" width="100%" height=250  class="img-responsive" >
-			<div class="carousel-caption">
-				<p>Mashroom house</p>
-			</div>
-		 </div>
-		 <div class="item">
-			<img src="images/slider2.jpg"  width="100%" height=250  class="img-responsive">
-			<div class="carousel-caption">
-				<p>malindi villa house</p>
-			</div>
-		 </div>
-		 <div class="item">
-			<img src="images/slider3.jpg"  width="100%" height=250  class="img-responsive">
-			<div class="carousel-caption">
-				<p>Msamaria Mwema</p>
-			</div>
-		 </div>
-		 <div class="item">
-			<img src="images/slider4.jpg"  width="100%" height=250  class="img-responsive">
-			<div class="carousel-caption">
-				<p>mpango mzima</p>
-			</div>
-		 </div>
-	</div>
-	<a class="carousel-control left" href="#myslider" data-slide="prev">
-	<span class="glyphicon glyphicon-chevron-left"></span>
-	</a>
-	<a class="carousel-control right" href="#myslider"  data-slide="next">
-	<span class="glyphicon glyphicon-chevron-right"></span>
-	</a>
-  </div>
-  </div>
-  <!-- END OF THE IMAGE SLIDER-->
 
-
-   <!-- SEARCH SECTION -->
-   <div class="container" >
-	<div class="row">
-		<form class="form-inline" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-			<fieldset>
-			<legend>Search</legend>
-				<div class="form-group">
-					<label class="control-label">Property Category :</label>
-					<select class="form-control" name="property_cat" required >
-						<?php getCats(); ?>
-					</select>
-				</div>
-				<div class="form-group">
-					<label class="control-label">Property Type :</label>
-					<select class="form-control" name="property_type" required >
-						<?php getTypes(); ?>
-					</select>
-				</div>
-				<div class="form-group">
-					<label class="control-label">Minimum price :</label>
-					<select class="form-control" name="min_price" required >
-						<?php getPrice(); ?>
-					</select>
-				</div>
-				<div class="form-group">
-					<label class="control-label">Maxmum price :</label>
-					<select class="form-control" name="max_price" required >
-						<?php getPrice(); ?>
-					</select>
-				</div>
-				<div class="form-group">
-					<label class="control-label">Location :</label>
-					<select class="form-control" name="property_loc" required >
-						<?php getLocation(); ?>
-					</select>
-				</div>
-				<div class="form-group">
-					<label class="control-label">Number of Bedrooms :</label>
-					<select class="form-control" name="bed" required >
-						<?php getBeds(); ?>
-					</select>
-				</div>
-				<br>
-				<div class="form-group">
-					<label class="control-label">Number of bathrooms :</label>
-					<select class="form-control" name="bath" required >
-						<?php getBaths(); ?>
-					</select>
-				</div>
-				<div class="form-group">
-					<label class="control-label">keywords :</label>
-					<input type="input" class="form-control" name="property_keywords" required>
-				</div>
-				<br>
-				<div class="form-group">
-					<input type="submit" name="search" class="btn btn-primary" value="search">
-				</div>
-
-			</fieldset>
-		</form>
-	</div>
-   </div>
-   <!-- END OF THE SEARCH SECTION -->
-
-
-
-    <!-- LIST PROPERTY SECTION -->
+  <!-- LIST PROPERTY SECTION -->
 	<div class="container">
 	<br>
 		<div class="row">
-	<h3>Areas In Kenya </h3>
+	<h3>All Properties In Malawi </h3>
 	</div>
 
 	<?php getProperty();?>
@@ -209,28 +135,7 @@ include ("function/function.php");
 	 <!-- FOOTER SECTION -->
 
 	 <footer class="site-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5">
-				<h4>Contact Address </h4>
-					<address>
-						#999, +254725330643,<br>
-						Nairobi,<br>
-						Kenya.
-					</address>
-				</div>
-		</div>
-		<div class="bottom-footer">
-			<div class="col-md-5">&copy;Copyright Makao 2018.</div>
-			<div class="col-md-7">
-				<ul class="footer-nav">
-					<li><a href="index.php">Home</a></li>
-					<li><a href="staff_login.php">Staff Login</a></li>
-					<li><a href="contact_us.php">Contact us</a></li>
-				</ul>
-			</div>
-			</div>
-		</div>
+		<?php include 'footer.php' ?>
 	 </footer>
 
 

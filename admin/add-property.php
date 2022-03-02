@@ -1,50 +1,5 @@
 <?php
-//session_start();
 include ("function/admin_function.php");
-
-if (isset($_POST['update'])) {
-	$new_name = $_POST['customer_name'];
-	$new_email = $_POST['customer_email'];
-	$new_contact = $_POST['customer_contact'];
-
-	$password = $_POST['customer_pass1'];
-	$con_pass = $_POST['customer_pass2'];
-
-	if ($password == "" and $con_pass == "") {
-		$verify_mssg = "Please Verify Its you";
-	} else if ($password != "" and $con_pass != "") {
-		if ($password == $con_pass) {
-			$new_password = $con_pass;
-
-			//using prepared staments for updating
-			$mysqli = new mysqli("127.0.0.1", "root", "", "makao");
-			$stmt = $mysqli->prepare("UPDATE customer SET customer_name=?, customer_email=?, customer_contacts=?, customer_password=? WHERE customer_id=?");
-			$stmt->bind_param('ssisi', $new_name, $new_email, $new_contact, $new_password, $_SESSION['id']);
-			$stmt->execute();
-
-			if ($stmt) {
-				$update_mssg = "Update successful";
-			} else {
-				$update_err = "Something went wrong with the update";
-			}
-
-		} else {
-			$pass_err = "Passwords do not match";
-		}
-	}
-
-
-
-	// $update = "update customer set customer_name='$new_name' where cutomer_id='".$_SESSION['id']."'";
-
-	// $query = mysqli_query($con, $update);
-
-	
-
-}
-
-	$select = "select * from customer where customer_id='".$_SESSION['id']."'";
-	$query = mysqli_query($con, $select);
 
 ?>
 
@@ -75,7 +30,30 @@ if (isset($_POST['update'])) {
 		<div class="row">
 
 		<!--		<div class="logo"> <img src="images/makazi.png" class="img-responsive" /></div> navbar-fixed-top-->
-    <?php include 'includes/admin-navbar.php' ?>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Client Orders</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">FAQs</a>
+                </li>
+              </ul>
+              <div class="d-flex">
+                <?php echo $_SESSION['name']; ?>
+              </div>
+            </div>
+          </div>
+        </nav>
 
 		</div>
 	</div>
@@ -91,26 +69,18 @@ if (isset($_POST['update'])) {
 			<!-- FORM FOR EDITTING PERSONAL DETAILS-->
 
 				<form action="edit-admin-profile.php" class="form-horizontal" method="post" enctype="multipart/form-data">
-				  <?php
-						while ($rows=mysqli_fetch_array($query)) {
+				  
 
-							$name = $rows['customer_name'];
-							$contact = $rows['customer_contacts'];
-							$email = $rows['customer_email'];
-							$password = $rows['customer_password'];
-
-					?>
-
-				  <div class="form-group">
-						<label class="control-label col-xs-2"> Names :</label>
+        <div class="form-group">
+						<label class="control-label col-xs-2"> Property Title :</label>
 						<div class="col-xs-4">
-							<input type="text" class="form-control" name="customer_name" placeholder="fullnames" value="<?php echo $name; ?>" >
-							
-							</div>
+							<input type="text" class="form-control" name="p-title" />
+						</div>
+					</div>
 					<div class="form-group">
-						<label class="control-label col-xs-2">Contacts :</label>
+						<label class="control-label col-xs-2"> Property Description</label>
 						<div class="col-xs-4">
-							<input type="text" class="form-control" name="customer_contact" value="<?php echo $contact; ?>">
+							<input type="text" class="form-control" name="p-desc" >
 						</div>
 					</div>
 					<!--W
@@ -122,24 +92,21 @@ if (isset($_POST['update'])) {
 						</div>
 					-->
 					<div class="form-group">
-						<label class="control-label col-xs-2"> Email :</label>
+						<label class="control-label col-xs-2"> Property Title :</label>
 						<div class="col-xs-4">
-							<input type="text" class="form-control" name="customer_email" placeholder="eg. some@thing.com" value="<?php echo $email; ?>" />
-							
+							<input type="text" class="form-control" name="p-title" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-xs-2"> Password :</label>
+						<label class="control-label col-xs-2"> Property Description</label>
 						<div class="col-xs-4">
-							<input type="password" class="form-control" name="customer_pass1" placeholder="New/Current Password">
+							<input type="text" class="form-control" name="" placeholder="New/Current Password">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-xs-2"> Confirm Password :</label>
 						<div class="col-xs-4">
 							<input type="password" class="form-control" name="customer_pass2" placeholder="confirm password" >
-							 <span><?php if(isset($pass_err)) echo $pass_err; ?></span>
-							 <span><?php if(isset($verify_mssg)) echo $verify_mssg; ?></span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -148,16 +115,8 @@ if (isset($_POST['update'])) {
 						<div class="col-xs-4">
 					<button type="submit" name="update" class="btn btn-primary">Update Details</button>
 					</div>
-
-					<?php
-					
-						}//close loop
-					?>
 					  </fieldset>
 				</form>
-				<span><?php if(isset($update_mssg)) echo $update_mssg; ?></span>
-				<span><?php if(isset($update_err)) echo $update_err; ?></span>
-
 			</div>
 		</div>
 	</div>

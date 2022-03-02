@@ -1,16 +1,6 @@
 # Real Estate Management System
 
-logout
-ediit personal details
-add property
-* house? - room number
-         - pictuer
-         - sale or rent (price)
-         - location
-* piece of land? - size
-                 - picture
-                 - sale or rent (price)
-* office or shop
+Remove all kenyan nonsense
 
 edit property
 manage tenants
