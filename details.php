@@ -14,6 +14,8 @@ if(isset($_POST['purchase']))
 	$property = $_POST['property_id'];
 	$payment = $_POST['payment'];
 	$price = $_POST['price'];
+	$owner = $_POST['owner_id'];
+	$type_id = $_POST['type_id'];
 
 	//proof of pay
 	$file_name = $_FILES['proof']['name'];
@@ -38,14 +40,18 @@ if(isset($_POST['purchase']))
 	
 	
 			$insert = "insert into purchases (
-				property_id, 
+				property_id,
+				pro_type, 
 				clients_id,
+				owner_id,
 				payment,
 				proof_of_pay
 				) 
 				values (
 					'$property',
+					'$type_id',
 					'$client',
+					'$owner',
 					'$payment',
 					'$newfilename'
 				)";
@@ -172,7 +178,7 @@ if(isset($_POST['purchase']))
 
 	$_SESSION['pro_id']=$property_id;
 
-	$get_pro="select * from property where property_id='$property_id'";
+	$get_pro="select * from customer, property where property.property_owner=customer.customer_id and property_id='$property_id'";
 
 	$run_pro=mysqli_query($con, $get_pro);
 
@@ -188,6 +194,8 @@ if(isset($_POST['purchase']))
 					$pro_desc=$row_pro['property_desc'];
 					$pro_bed=$row_pro['bed'];
 					$pro_bath=$row_pro['bath'];
+					$pro_owner = $row_pro['property_owner'];
+					$pro_owner_name = $row_pro['customer_name'];
 		?>
 		
 				<ul class='list-group'>
@@ -195,7 +203,7 @@ if(isset($_POST['purchase']))
 				<br>
 					<div class='row'>
 						<div class='col-md-4 col-sm-4'>
-							<img src='admin/property_images/<?php echo $pro_image ?>' height=400 width=400 style='border:2px solid black;' class='img-responsive'>
+							<img src='property_images/<?php echo $pro_image ?>' height=400 width=400 style='border:2px solid black;' class='img-responsive'>
 						</div>
 						<div class='col-md-8 col-sm-8'>
 							<h3><?php echo $pro_title ?></h3>
@@ -223,9 +231,31 @@ if(isset($_POST['purchase']))
 								<div class="modal-body">
 									<form action="details.php" method="post" enctype="multipart/form-data">
 										<div class="form-group">
+											<label for="owner">Owner</label>
+											<input type="text" id="owner" name="owner_name" class="form-control" value="<?php echo $pro_owner_name ?>">
+											<input type="text" id="owner_id" name="owner_id" class="form-control" value="<?php echo $pro_owner ?>" hidden>
+										</div>
+										<div class="form-group">
 											<label for="property_id">Property</label>
 											<input type="text" name="property_id" value="<?php echo $pro_id ?>" hidden>
 											<input type="text" id="property_id" name="prop_id" class="form-control" value="<?php echo $pro_title ?>">
+										</div>
+										<div class="form-group">
+											<label for="type_id">Type</label>
+											<select type="text" id="type_id" name="type_id" class="form-control">
+											<?php
+												$select_type = "select * from types where type_id='$pro_type'";
+												$type_query = mysqli_query($con, $select_type);
+
+												while ($rows_type=mysqli_fetch_array($type_query)) {
+													$type_title = $rows_type['type_title'];
+													$type_id = $rows_type['type_id'];
+											?>
+												<option value="<?php echo $type_id ?>"><?php echo $type_title ?></option>
+											<?php
+												}
+											?>
+											</select>
 										</div>
 										<div class="form-group">
 											<label for="cusotmer">Customer</label>
@@ -233,9 +263,11 @@ if(isset($_POST['purchase']))
 											<input type="text" id="client" name="client" class="form-control" value="<?php echo $_SESSION['name'] ?>">
 										</div>
 										<div class="form-group">
+											<label for="price">Price</label>
+											<input type="text" name="price" class="form-control" value="<?php echo $pro_price ?>">
+										</div>
+										<div class="form-group">
 											<label for="payment">Payment</label>
-											<input type="text" name="price" value="<?php echo $pro_price ?>">
-										
 											<input type="text" id="payment" name="payment" class="form-control" placeholder="Payment">
 										</div>
 										<div class="form-group">

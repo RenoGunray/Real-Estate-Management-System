@@ -18,7 +18,7 @@ include ("includes/db.php");
 		$bath=$_POST['bath'];
 
 		//GETTING THE IMAGE FROM THE FIELD
-		$target_dir = "property_images/";
+		$target_dir = "../property_images/";
 		$target_file = $target_dir . basename($_FILES["property_image"]["name"]);
 		$uploadOk = 1;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -92,156 +92,148 @@ include ("includes/db.php");
 		</div>
 	</div>
 	<!--END OF NAVBAR-->
-  <div class="container">
-	<div class="row mt-5">
-	<div class="col-md-5">
-			<!--CLIENT SIDE MENU-->
-        <?php include 'includes/sidenav.php'; ?>
-	</div>
-	<div class="col-md-7 col-md-offset-2 well">
-		<div class="d-flex mb-3">
-          <?php include 'includes/property-subnav.php' ?>
-    </div>
-
-    <?php if(isset($added)){ echo $added.'</br>';} ?>
-    <?php if(isset($id_error)){ echo $id_msg.'</br>';} ?>
-
-	<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" >
-	<fieldset>
-                    <legend>Add Property </legend>
-	<div class="form-group">
-		<label class="control-label col-xs-3">Property Title :</label>
-		<div class="col-xs-4">
-			<input type="input" class="form-control" name="property_title" required >
-		</div>
-	</div>
-	<div class="form-group" >
-		<label class="control-label col-xs-3">Property Owner :</label>
-		<div class="col-xs-4">
-		<select class="form-control" name="property_owner" required >
-			<option value="<?php echo $_SESSION['id'] ?>"><?php echo $_SESSION['name'] ?></option>
-		</select>
-		</div>
-	</div>
-	<div class="form-group" >
-		<label class="control-label col-xs-3">Property Category :</label>
-		<div class="col-xs-4">
-		<select class="form-control" name="property_cat" required >
-			<?php
-				$get_cats="select * from categories";
-
-				$run_cats=mysqli_query( $con,$get_cats);
-
-				while($row_cats = mysqli_fetch_array($run_cats)){
-
-					$cat_id=$row_cats['cat_id'];
-					$cat_title=$row_cats['cat_title'];
-					echo "<option value='$cat_id'>$cat_title</option>";
-				}
-			?>
-		</select>
-		</div>
-	</div>
-	<div class="form-group" >
-		<label class="control-label col-xs-3">Property Type:</label>
-		<div class="col-xs-4">
-		<select class="form-control" name="property_type" required>
-			<?php
-				$get_types="select * from types";
-
-				$run_types=mysqli_query( $con, $get_types);
-
-				while($row_types = mysqli_fetch_array($run_types)){
-
-					$type_id=$row_types['type_id'];
-					$type_title=$row_types['type_title'];
-					echo "<option value='$type_id'>$type_title</option>";
-				}
-			?>
-		</select>
-	</div>
-	</div>
-
-	<div class="form-group">
-		<label class="control-label col-xs-3">Property Image :</label>
-		<div class="col-xs-4">
-			<input type="file" class="form-control" name="property_image" required >
-		</div>
-	</div>
-	<div class="form-group" >
-		<label class="control-label col-xs-3">Property Price:</label>
-		<div class="col-xs-4">
-		<select class="form-control" name="property_price" required>
-			<?php
-				$get_prices="select * from prices";
-
-				$run_prices=mysqli_query( $con,$get_prices);
-
-				while($row_prices = mysqli_fetch_array($run_prices)){
-
-					$price_id=$row_prices['price_id'];
-					$prices=$row_prices['prices'];
-					echo "<option value='$prices'>Ksh $prices.00</option>";
-				}
-			?>
-		</select>
-	</div>
-	</div>
+  <div class="container mt-2">
+		<!--CLIENT SIDE MENU-->
+		<?php include 'includes/sidenav.php'; ?>
+	<div class="row">
 	
-	<div class="form-group" >
-		<label class="control-label col-xs-3">Number of Rooms :</label>
-		<div class="col-xs-4">
-		<select class="form-control" name="bed" required>
-			<?php
-				$get_bed="select * from beds";
-
-				$run_bed=mysqli_query( $con,$get_bed);
-
-				while($row_bed = mysqli_fetch_array($run_bed)){
-
-					$bed_id=$row_bed['bed_id'];
-					$no_of_beds=$row_bed['no of beds'];
-					echo "<option value='$bed_id'>$no_of_beds</option>";
-				}
-			?>
-		</select>
-	</div>
-	</div>
-	<div class="form-group" >
-		<label class="control-label col-xs-3">Number of Bathsrooms:</label>
-		<div class="col-xs-4">
-		<select class="form-control" name="bath" required>
-			<?php
-				$get_bath="select * from baths";
-
-				$run_bath=mysqli_query( $con,$get_bath);
-
-				while($row_bath = mysqli_fetch_array($run_bath)){
-
-					$baths_id=$row_bath['baths_id'];
-					$no_of_baths=$row_bath['no_of_baths'];
-					echo "<option value='$baths_id'>$no_of_baths</option>";
-				}
-			?>
-		</select>
-	</div>
-	</div>
-	<div class="form-group">
-		<label class="control-label col-xs-3">Property Description:</label>
-		<div class="col-xs-4">
-			<textarea class="form-control" name="property_desc"  row="10"></textarea>
+	<div class="col-lg-10 m-auto col-md-offset-2 well">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">Insert Property</h4>
+			</div>
+			<div class="card-body">
+				<div class="d-flex mb-3">
+							<?php include 'includes/property-subnav.php' ?>
+				</div>
+		
+				<?php if(isset($added)){ echo $added.'</br>';} ?>
+				<?php if(isset($id_error)){ echo $id_msg.'</br>';} ?>
+		
+			<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" >
+			<fieldset>
+												<legend>Add Property </legend>
+			<div class="form-group">
+				<label class="control-label col-xs-3">Property Title :</label>
+				<div class="col-xs-4">
+					<input type="input" class="form-control" name="property_title" required >
+				</div>
+			</div>
+			<div class="form-group" >
+				<label class="control-label col-xs-3">Property Owner :</label>
+				<div class="col-xs-4">
+				<select class="form-control" name="property_owner" required >
+					<option value="<?php echo $_SESSION['id'] ?>"><?php echo $_SESSION['name'] ?></option>
+				</select>
+				</div>
+			</div>
+			<div class="form-group" >
+				<label class="control-label col-xs-3">Property Category :</label>
+				<div class="col-xs-4">
+				<select class="form-control" name="property_cat" required >
+					<?php
+						$get_cats="select * from categories";
+		
+						$run_cats=mysqli_query( $con,$get_cats);
+		
+						while($row_cats = mysqli_fetch_array($run_cats)){
+		
+							$cat_id=$row_cats['cat_id'];
+							$cat_title=$row_cats['cat_title'];
+							echo "<option value='$cat_id'>$cat_title</option>";
+						}
+					?>
+				</select>
+				</div>
+			</div>
+			<div class="form-group" >
+				<label class="control-label col-xs-3">Property Type:</label>
+				<div class="col-xs-4">
+				<select class="form-control" name="property_type" required>
+					<?php
+						$get_types="select * from types";
+		
+						$run_types=mysqli_query( $con, $get_types);
+		
+						while($row_types = mysqli_fetch_array($run_types)){
+		
+							$type_id=$row_types['type_id'];
+							$type_title=$row_types['type_title'];
+							echo "<option value='$type_id'>$type_title</option>";
+						}
+					?>
+				</select>
+			</div>
+			</div>
+		
+			<div class="form-group">
+				<label class="control-label col-xs-3">Property Image :</label>
+				<div class="col-xs-4">
+					<input type="file" class="form-control" name="property_image" required >
+				</div>
+			</div>
+			<div class="form-group" >
+				<label class="control-label col-xs-3">Property Price:</label>
+				<div class="col-xs-4">
+				<input type="text" class="form-control" name="property_price" required>
+			</div>
+			</div>
+			
+			<div class="form-group" >
+				<label class="control-label col-xs-3">Number of Rooms :</label>
+				<div class="col-xs-4">
+				<select class="form-control" name="bed" required>
+					<?php
+						$get_bed="select * from beds";
+		
+						$run_bed=mysqli_query( $con,$get_bed);
+		
+						while($row_bed = mysqli_fetch_array($run_bed)){
+		
+							$bed_id=$row_bed['bed_id'];
+							$no_of_beds=$row_bed['no of beds'];
+							echo "<option value='$bed_id'>$no_of_beds</option>";
+						}
+					?>
+				</select>
+			</div>
+			</div>
+			<div class="form-group" >
+				<label class="control-label col-xs-3">Number of Bathsrooms:</label>
+				<div class="col-xs-4">
+				<select class="form-control" name="bath" required>
+					<?php
+						$get_bath="select * from baths";
+		
+						$run_bath=mysqli_query( $con,$get_bath);
+		
+						while($row_bath = mysqli_fetch_array($run_bath)){
+		
+							$baths_id=$row_bath['baths_id'];
+							$no_of_baths=$row_bath['no_of_baths'];
+							echo "<option value='$baths_id'>$no_of_baths</option>";
+						}
+					?>
+				</select>
+			</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-3">Property Description:</label>
+				<div class="col-xs-4">
+					<textarea class="form-control" name="property_desc"  row="10"></textarea>
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label class="control-label col-xs-3"></label>
+				</div>
+				<div class="col-xs-4">
+			<input type="submit" name="insert_property" class="btn btn-primary" value="insert property">
+			</div>
+			</fieldset>
+			</form>
+			</div>
 		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="control-label col-xs-3"></label>
-		</div>
-		<div class="col-xs-4">
-	<input type="submit" name="insert_property" class="btn btn-primary" value="insert property">
-	</div>
-	</fieldset>
-	</form>
-	 </center>
   </div>
   </div>
   </div>
@@ -249,28 +241,7 @@ include ("includes/db.php");
  <!-- FOOTER SECTION -->
 
 	 <footer class="site-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5">
-				<h4>Contact Address </h4>
-					<address>
-						#999, Siriba Campus,<br>
-						Maseno,<br>
-						Kenya.
-					</address>
-				</div>
-		</div>
-		<div class="bottom-footer">
-			<div class="col-md-5">&copy;Copyright Makao Bora 2017.</div>
-			<div class="col-md-7">
-				<ul class="footer-nav">
-					<li><a href="/makao/index.php">Home</a></li>
-					<li><a href="#">FAQs</a></li>
-					<li><a href="makao/index.php">Sign Out</a></li>
-				</ul>
-			</div>
-			</div>
-		</div>
+		<?php include 'includes/footer.php' ?>
 	 </footer>
 	<!-- END OF THE FOOTER -->
 
@@ -278,6 +249,7 @@ include ("includes/db.php");
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../bootstrap/dist/js/bootstrap.js"></script>
+		<script src="../js/mainjs.js"></script>
 	<script type="text/javascript">
 	</body>
 </html>

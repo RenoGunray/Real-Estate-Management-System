@@ -49,7 +49,7 @@ function getProperty()
 		<br>
 			<div class='row'>
 				<div class='col-md-4 col-sm-4'>
-					<img src='admin/property_images/$pro_image' height=250 width=250 style='border:2px solid black;' class='img-responsive'>
+					<img src='property_images/$pro_image' height=250 width=250 style='border:2px solid black;' class='img-responsive'>
 				</div>
 				<div class='col-md-8 col-sm-8'>
 					<h3>$pro_title</h3>

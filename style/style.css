@@ -68,3 +68,14 @@ footer, header, hgroup, menu, nav, section {
 	color:#fff;
 	text-decoration:none;
 }
+
+.side-nav-links {
+	text-decoration: none;
+	
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+.active-link {
+	border-bottom: 4px solid #0275d8;
+}

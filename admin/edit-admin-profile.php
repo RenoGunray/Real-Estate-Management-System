@@ -80,83 +80,89 @@ if (isset($_POST['update'])) {
 		</div>
 	</div>
 	<!--END OF NAVBAR-->
-	<div class="container">
+	<div class="container mt-2">
+		<!--CLIENT SIDE MENU-->
+			<?php include 'includes/sidenav.php'; ?>
 		<div class="row">
-			<div class="col-md-5">
-			<!--CLIENT SIDE MENU-->
-        <?php include 'includes/sidenav.php'; ?>
-			</div>
-			<div class="col-md-7">
+			<div class="col-lg-10 m-auto">
 
-			<!-- FORM FOR EDITTING PERSONAL DETAILS-->
-
-				<form action="edit-admin-profile.php" class="form-horizontal" method="post" enctype="multipart/form-data">
-				  <?php
-						while ($rows=mysqli_fetch_array($query)) {
-
-							$name = $rows['customer_name'];
-							$contact = $rows['customer_contacts'];
-							$email = $rows['customer_email'];
-							$password = $rows['customer_password'];
-
-					?>
-
-				  <div class="form-group">
-						<label class="control-label col-xs-2"> Names :</label>
-						<div class="col-xs-4">
-							<input type="text" class="form-control" name="customer_name" placeholder="fullnames" value="<?php echo $name; ?>" >
-							
-							</div>
-					<div class="form-group">
-						<label class="control-label col-xs-2">Contacts :</label>
-						<div class="col-xs-4">
-							<input type="text" class="form-control" name="customer_contact" value="<?php echo $contact; ?>">
-						</div>
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">Edit</h4>
 					</div>
-					<!--W
-						<div class="form-group">
-							<label class="control-label col-xs-2">Profile Picture :</label>
-							<div class="col-xs-4">
-								<input type="file" class="form-control" name="profile_pic" >
-							</div>
-						</div>
-					-->
-					<div class="form-group">
-						<label class="control-label col-xs-2"> Email :</label>
-						<div class="col-xs-4">
-							<input type="text" class="form-control" name="customer_email" placeholder="eg. some@thing.com" value="<?php echo $email; ?>" />
-							
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-xs-2"> Password :</label>
-						<div class="col-xs-4">
-							<input type="password" class="form-control" name="customer_pass1" placeholder="New/Current Password">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-xs-2"> Confirm Password :</label>
-						<div class="col-xs-4">
-							<input type="password" class="form-control" name="customer_pass2" placeholder="confirm password" >
-							 <span><?php if(isset($pass_err)) echo $pass_err; ?></span>
-							 <span><?php if(isset($verify_mssg)) echo $verify_mssg; ?></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-xs-2"></label>
-						</div>
-						<div class="col-xs-4">
-					<button type="submit" name="update" class="btn btn-primary">Update Details</button>
-					</div>
+					<div class="card-body">
+							<!-- FORM FOR EDITTING PERSONAL DETAILS-->
 
-					<?php
-					
-						}//close loop
-					?>
-					  </fieldset>
-				</form>
-				<span><?php if(isset($update_mssg)) echo $update_mssg; ?></span>
-				<span><?php if(isset($update_err)) echo $update_err; ?></span>
+							<form action="edit-admin-profile.php" class="form-horizontal" method="post" enctype="multipart/form-data">
+								<?php
+									while ($rows=mysqli_fetch_array($query)) {
+
+										$name = $rows['customer_name'];
+										$contact = $rows['customer_contacts'];
+										$email = $rows['customer_email'];
+										$password = $rows['customer_password'];
+
+								?>
+
+								<div class="form-group">
+									<label class="control-label col-xs-2"> Names :</label>
+									<div class="col-xs-4">
+										<input type="text" class="form-control" name="customer_name" placeholder="fullnames" value="<?php echo $name; ?>" >
+										
+										</div>
+								<div class="form-group">
+									<label class="control-label col-xs-2">Contacts :</label>
+									<div class="col-xs-4">
+										<input type="text" class="form-control" name="customer_contact" value="<?php echo $contact; ?>">
+									</div>
+								</div>
+								<!--W
+									<div class="form-group">
+										<label class="control-label col-xs-2">Profile Picture :</label>
+										<div class="col-xs-4">
+											<input type="file" class="form-control" name="profile_pic" >
+										</div>
+									</div>
+								-->
+								<div class="form-group">
+									<label class="control-label col-xs-2"> Email :</label>
+									<div class="col-xs-4">
+										<input type="text" class="form-control" name="customer_email" placeholder="eg. some@thing.com" value="<?php echo $email; ?>" />
+										
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-xs-2"> Password :</label>
+									<div class="col-xs-4">
+										<input type="password" class="form-control" name="customer_pass1" placeholder="New/Current Password">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-xs-2"> Confirm Password :</label>
+									<div class="col-xs-4">
+										<input type="password" class="form-control" name="customer_pass2" placeholder="confirm password" >
+										<span><?php if(isset($pass_err)) echo $pass_err; ?></span>
+										<span><?php if(isset($verify_mssg)) echo $verify_mssg; ?></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-xs-2"></label>
+									</div>
+									<div class="col-xs-4">
+								<button type="submit" name="update" class="btn btn-primary">Update Details</button>
+								</div>
+
+								<?php
+								
+									}//close loop
+								?>
+									</fieldset>
+							</form>
+							<span><?php if(isset($update_mssg)) echo $update_mssg; ?></span>
+							<span><?php if(isset($update_err)) echo $update_err; ?></span>
+
+					</div>
+				</div>
 
 			</div>
 		</div>
@@ -164,28 +170,7 @@ if (isset($_POST['update'])) {
 	<!-- FOOTER SECTION -->
 
 	 <footer class="site-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5">
-				<h4>Contact Address </h4>
-					<address>
-						#999, Siriba Campus,<br>
-						Maseno,<br>
-						Kenya.
-					</address>
-				</div>
-		</div>
-		<div class="bottom-footer">
-			<div class="col-md-5">&copy;Copyright Makao Bora 2017.</div>
-			<div class="col-md-7">
-				<ul class="footer-nav">
-					<li><a href="index.php">Home</a></li>
-					<li><a href="#">FAQs</a></li>
-					<li><a href="index.php">Sign Out</a></li>
-				</ul>
-			</div>
-			</div>
-		</div>
+		<?php include 'includes/footer.php' ?>
 	 </footer>
 	<!-- END OF THE FOOTER -->
 
@@ -194,5 +179,6 @@ if (isset($_POST['update'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../bootstrap/dist/js/bootstrap.js"></script>
+		<script src="../js/mainjs.js"></script>
   </body>
 </html>

@@ -41,11 +41,11 @@ if(isset($_POST['login']))
 		}
 		if ($_SESSION['client_type']==2)
 		{
-			header('Location:Landlords/landlord.php');
+			header('Location:Landlords/dashboard.php');
 		}
 		if ($_SESSION['client_type']==3) 
 		{
-			header('location:admin/admin.php');
+			header('location:admin/dashboard.php');
 		}
 
 

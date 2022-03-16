@@ -40,45 +40,29 @@ include ("function/admin_function.php");
 		</div>
 	</div>
 	<!--END OF NAVBAR-->
-	<div class="container mt-5">
+	<div class="container mt-2">
+		<!--CLIENT SIDE MENU-->
+		<?php include 'includes/sidenav.php' ?>
 		<div class="row">
-			<div class="col-md-5">
-			<!--CLIENT SIDE MENU-->
-      <?php include 'includes/sidenav.php' ?>
-			</div>
-			<div class="col-md-7">
-        <div class="d-flex mb-3">
-          <?php include 'includes/property-subnav.php' ?>
-        </div>
-				<?php get_all_property() ?>
+			<div class="col-lg-10 m-auto">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">Property</h4>
+					</div>
+					<div class="card-body">
+						<div class="d-flex mb-3">
+							<?php include 'includes/property-subnav.php' ?>
+						</div>
+						<?php get_all_property() ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<!-- FOOTER SECTION -->
 
 	 <footer class="site-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5">
-				<h4>Contact Address </h4>
-					<address>
-						#999, Siriba Campus,<br>
-						Maseno,<br>
-						Kenya.
-					</address>
-				</div>
-		</div>
-		<div class="bottom-footer">
-			<div class="col-md-5">&copy;Copyright Makao Bora 2017.</div>
-			<div class="col-md-7">
-				<ul class="footer-nav">
-					<li><a href="index.php">Home</a></li>
-					<li><a href="#">FAQs</a></li>
-					<li><a href="../signout.php">Sign Out</a></li>
-				</ul>
-			</div>
-			</div>
-		</div>
+		<?php include 'includes/footer.php' ?>
 	 </footer>
 	<!-- END OF THE FOOTER -->
 
@@ -87,5 +71,6 @@ include ("function/admin_function.php");
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../bootstrap/dist/js/bootstrap.js"></script>
+		<script src="../js/mainjs.js"></script>
   </body>
 </html>

@@ -85,7 +85,7 @@ include ("function/function.php");
 										if ($client_type == 'admin') {
 											
 											?>
-									<a href="admin/admin.php" class="nav-link"><?php echo $customer_name; ?></a>
+									<a href="admin/dashboard.php" class="nav-link"><?php echo $customer_name; ?></a>
 									<?php
 									}
 									

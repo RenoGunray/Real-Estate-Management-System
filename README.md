@@ -1,6 +1,11 @@
 # Real Estate Management System
 
-Remove all kenyan nonsense
+view all users
+  edit user info
+
+client orders
+  my property that other clients have ordered
 
 edit property
+  
 manage tenants
